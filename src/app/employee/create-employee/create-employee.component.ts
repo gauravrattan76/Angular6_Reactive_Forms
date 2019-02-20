@@ -67,7 +67,8 @@ export class CreateEmployeeComponent implements OnInit {
         this.logKryValuePair(AbstractControl);
       }
        else{
-         console.log('Key-- ' + key + '  value--' + abstractControl.value);
+        //  console.log('Key-- ' + key + '  value--' + abstractControl.value);
+        abstractControl.disable();
        }
     }
    
