@@ -20,6 +20,16 @@ export class CreateEmployeeComponent implements OnInit {
         proficiency: [""]
       })
     });
+
+
+    // this.employeeForm.get("fullName").valueChanges.subscribe(
+    //   data => console.log(data)
+    // );
+
+    
+    this.employeeForm.valueChanges.subscribe(
+      data => console.log(JSON.stringify(data))
+    );
   }
 
   // ngOnInit() {
