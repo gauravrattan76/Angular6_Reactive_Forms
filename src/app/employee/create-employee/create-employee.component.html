@@ -30,4 +30,32 @@
 </div>
   </div>
 </form>
+<br>
 {{employeeForm.value | json}}
+<br>
+<table class="table table-bordered table-striped">
+<thead>
+  <tr>
+    <th>Form Group</th>
+    <th>Form Control(Full Name)</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>
+      <tr><td>Dirty: {{employeeForm.dirty}}</td>
+        <td>Pristine: {{employeeForm.pristine}}</td>
+        <td>Touched: {{employeeForm.touched}}</td>
+        <td>Valid: {{employeeForm.valid}}</td>
+        <td>{{employeeForm.value | json}}</td></tr>
+    </td>
+    <td>
+        <tr>  <td>Dirty: {{employeeForm.get("fullName").dirty}}</td>
+          <td>Pristine: {{employeeForm.get("fullName").pristine}}</td>
+          <td>Touched: {{employeeForm.get("fullName").touched}}</td>
+          <td>Valid: {{employeeForm.get("fullName").valid}}</td>
+          <td>{{employeeForm.get("fullName").value | json}}</td></tr>
+      </td>
+  </tr>
+</tbody>
+</table>
