@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {ReactiveFormsModule,FormsModule} from '@angular/forms';
 
 import {routing} from './appRuting';
 import { AppComponent } from './app.component';
@@ -14,7 +15,9 @@ import { CreateEmployeeComponent } from './employee/create-employee/create-emplo
   ],
   imports: [
     BrowserModule,
-    routing
+    routing,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

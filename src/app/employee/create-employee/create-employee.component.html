@@ -1,3 +1,33 @@
-<p>
-  create-employee works!
-</p>
+<form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Employee Form</div>
+    </div>
+<div class="card-body">
+<div class="form-group">
+  <div class="row">
+    <div class="col-md-2">
+        <label class="control-label" for="fullName">FullName:</label>
+    </div>
+    <div class="col-md-8">
+<input type="text" name="fullName" class="form-control" formControlName="fullName">
+    </div>
+  </div>
+</div>
+<div class="form-group">
+    <div class="row">
+      <div class="col-md-2">
+          <label class="control-label" for="email" >Email:</label>
+      </div>
+      <div class="col-md-8">
+          <input type="email" name="email" class="form-control" formControlName="email">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-footer">
+<button class="btn btn-primary" type="submit">Submit</button>
+</div>
+  </div>
+</form>
+{{employeeForm.value | json}}
