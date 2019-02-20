@@ -26,4 +26,16 @@ export class CreateEmployeeComponent implements OnInit {
     console.log(this.employeeForm.value);
   }
 
+  loadData(){
+    this.employeeForm.setValue({
+      fullName:"Gaurav Rattan",
+      email:"gauravrattan76@gmail.com",
+      skills:{
+        skill:"Angular 6",
+        experience: 5,
+        proficiency:"Expert"
+      }
+    });
+  }
+
 }
