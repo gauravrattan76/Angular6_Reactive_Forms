@@ -24,6 +24,44 @@
       </div>
     </div>
   </div>
+  <div formGroupName="skills">
+      <div class="form-group">
+          <div class="row">
+            <div class="col-md-2">
+                <label class="control-label" for="skill">Skill:</label>
+            </div>
+            <div class="col-md-4">
+        <input type="text" name="skill" class="form-control" placeholder="skill" formControlName="skill">
+            </div>
+            <div class="col-md-4">
+                <input type="text" name="experience" class="form-control" placeholder="experience" formControlName="experience">
+                    </div>
+          </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+              <div class="col-md-2">
+                  <label class="control-label">Proficiency:</label>
+              </div>
+              <div class="col-md-2">
+                  <label class="radio-inline">
+                    <input type="radio" value="Begineer" name="proficiency" formControlName="proficiency">Beginner
+                  </label>
+                    
+              </div>
+              <div class="col-md-2">
+                  <label class="radio-inline">
+                      <input type="radio" value="Intermediate" name="proficiency" formControlName="proficiency">Intermediate
+                    </label>
+              </div>
+              <div class="col-md-2">
+                  <label class="radio-inline">
+                      <input type="radio" value="Expert" name="proficiency" formControlName="proficiency">Expert
+                    </label>
+              </div>
+            </div>
+          </div>
+  </div>
 </div>
 <div class="card-footer">
 <button class="btn btn-primary" type="submit">Submit</button>
@@ -32,7 +70,7 @@
 </form>
 <br>
 {{employeeForm.value | json}}
-<br>
+<!-- <br>
 <table class="table table-bordered table-striped">
 <thead>
   <tr>
@@ -58,4 +96,4 @@
       </td>
   </tr>
 </tbody>
-</table>
+</table> -->
