@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder,Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-create-employee',
@@ -12,7 +12,7 @@ export class CreateEmployeeComponent implements OnInit {
 
   ngOnInit() {
     this.employeeForm = this._fb.group({
-      fullName: ["",[Validators.required,Validators.minLength(2),Validators.maxLength(10)]],
+      fullName: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
       email: [""],
       skills: this._fb.group({
         skill: [""],
@@ -26,7 +26,7 @@ export class CreateEmployeeComponent implements OnInit {
     //   data => console.log(data)
     // );
 
-    
+
     this.employeeForm.valueChanges.subscribe(
       data => console.log(JSON.stringify(data))
     );
@@ -60,16 +60,31 @@ export class CreateEmployeeComponent implements OnInit {
   //   });
   // }
 
+  logKryValuePair(group: FormGroup): void {
+    Object.keys(group.controls).forEach(key => { const abstractControl = group.get(key);
+      if(AbstractControl instanceof FormGroup)
+      {
+        this.logKryValuePair(AbstractControl);
+      }
+       else{
+         console.log('Key-- ' + key + '  value--' + abstractControl.value);
+       }
+    }
+   
+    )
+  }
+
   loadData() {
-    this.employeeForm.patchValue({
-      fullName: "Gaurav Rattan",
-      email: "gauravrattan76@gmail.com",
-      // skills:{
-      //   skill:"Angular 6",
-      //   experience: 5,
-      //   proficiency:"Expert"
-      // }
-    });
+    this.logKryValuePair(this.employeeForm);
+    // this.employeeForm.patchValue({
+    //   fullName: "Gaurav Rattan",
+    //   email: "gauravrattan76@gmail.com",
+    //   // skills:{
+    //   //   skill:"Angular 6",
+    //   //   experience: 5,
+    //   //   proficiency:"Expert"
+    //   // }
+    // });
   }
 
 }
