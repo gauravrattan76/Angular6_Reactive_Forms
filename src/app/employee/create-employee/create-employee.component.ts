@@ -14,7 +14,7 @@ export class CreateEmployeeComponent implements OnInit {
   ngOnInit() {
     this.employeeForm = this._fb.group({
       fullName: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
-      email: ["",Validators.required],
+      email: ["",[Validators.required,emailDomain]],
       skills: this._fb.group({
         skill: ["",Validators.required],
         experience: ["",Validators.required],
@@ -42,6 +42,7 @@ export class CreateEmployeeComponent implements OnInit {
       'maxlength': 'Full Name must be less than 10 characters.'
     },
     'email': {
+      'emailDomain':'Email domain should be GE.com',
       'required': 'Email is required.'
     },
     'skill': {
@@ -89,5 +90,15 @@ export class CreateEmployeeComponent implements OnInit {
   //   this.logKeyValuePairs(this.employeeForm);
   //   console.log(this.formErrors);
   // }
+ 
+  }
+  function emailDomain(control: AbstractControl): { [key: string]: any } | null {
+    const email: string = control.value;
+    const domain = email.substring(email.lastIndexOf('@') + 1);
+    if (email === '' || domain.toLowerCase() === 'ge.com') {
+      return null;
+    } else {
+      return { 'emailDomain': true };
+    }
 
 }
