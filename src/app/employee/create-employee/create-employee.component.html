@@ -12,27 +12,22 @@
           </div>
           <div class="col-md-8">
             <input type="text" name="fullName" class="form-control" formControlName="fullName" (blur)="logKeyValuePairs()">
-            <!-- <span class="help-block" *ngIf="(employeeForm.get('fullName').touched || employeeForm.get('fullName').dirty) && employeeForm.get('fullName').errors">
-            <span *ngIf="employeeForm.get('fullName').errors.required">
-              FullName is required
-            </span>
-            <span *ngIf="employeeForm.get('fullName').errors.minlength || employeeForm.get('fullName').errors.maxlength">
-              Min lenght is 2 and Max lenght is 10
-            </span>
-            </span> -->
             <span class="help-block" *ngIf="formErrors.fullName">
               {{formErrors.fullName}}
               </span>
           </div>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group" [ngClass]="{'has-error':formErrors.email}">
         <div class="row">
           <div class="col-md-2">
             <label class="control-label" for="email">Email:</label>
           </div>
           <div class="col-md-8">
-            <input type="email" name="email" class="form-control" formControlName="email">
+            <input type="email" name="email" class="form-control" formControlName="email"  (blur)="logKeyValuePairs()">
+            <span class="help-block" *ngIf="formErrors.email">
+              {{formErrors.email}}
+              </span>
           </div>
         </div>
       </div>

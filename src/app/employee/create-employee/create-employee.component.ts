@@ -67,9 +67,9 @@ export class CreateEmployeeComponent implements OnInit {
         this.logKeyValuePairs(abstractControl)
       }
       else {
-       if(abstractControl && !abstractControl.valid)
+        this.formErrors[key] = "";
+       if(abstractControl && !abstractControl.valid && (abstractControl.touched))
        {
-         this.formErrors[key] = "";
          const messages = this.validationMessages[key];
       
        for(const errorKey in abstractControl.errors)
@@ -82,6 +82,7 @@ export class CreateEmployeeComponent implements OnInit {
       }
       }
     });
+    console.log(this.formErrors);
   }
 
   // loadData() {
