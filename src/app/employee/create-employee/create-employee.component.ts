@@ -14,11 +14,11 @@ export class CreateEmployeeComponent implements OnInit {
   ngOnInit() {
     this.employeeForm = this._fb.group({
       fullName: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
-      email: [""],
+      email: ["",Validators.required],
       skills: this._fb.group({
-        skill: [""],
-        experience: [""],
-        proficiency: [""]
+        skill: ["",Validators.required],
+        experience: ["",Validators.required],
+        proficiency: ["",Validators.required]
       })
     });
 
@@ -26,6 +26,35 @@ export class CreateEmployeeComponent implements OnInit {
     //   //data => console.log(JSON.stringify(data))
     // );
   }
+
+  formErrors = {
+    'fullName': '',
+    'email': '',
+    'skill': '',
+    'experience': '',
+    'proficiency': ''
+  }
+
+  validationMessages = {
+    'fullName': {
+      'required': 'Full Name is required.',
+      'minlength': 'Full Name must be greater than 2 characters.',
+      'maxlength': 'Full Name must be less than 10 characters.'
+    },
+    'email': {
+      'required': 'Email is required.'
+    },
+    'skill': {
+      'required': 'Skill Name is required.',
+    },
+    'experience': {
+      'required': 'Experience is required.',
+    },
+    'proficiency': {
+      'required': 'Proficiency is required.',
+    },
+  };
+
 
   onSubmit() {
     console.log(this.employeeForm.value);
@@ -38,13 +67,26 @@ export class CreateEmployeeComponent implements OnInit {
         this.logKeyValuePairs(abstractControl)
       }
       else {
-        console.log("Key  " + key + " value  " + abstractControl.value);
+       if(abstractControl && !abstractControl.valid)
+       {
+         this.formErrors[key] = "";
+         const messages = this.validationMessages[key];
+      
+       for(const errorKey in abstractControl.errors)
+       {
+         if(errorKey)
+         {
+           this.formErrors[key] += messages[errorKey] + ' ';
+         }
+       }
+      }
       }
     });
   }
 
   loadData() {
     this.logKeyValuePairs(this.employeeForm);
+    console.log(this.formErrors);
   }
 
 }
