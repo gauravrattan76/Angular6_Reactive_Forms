@@ -22,9 +22,9 @@ export class CreateEmployeeComponent implements OnInit {
       })
     });
 
-    // this.employeeForm.valueChanges.subscribe(
-    //   //data => console.log(JSON.stringify(data))
-    // );
+    this.employeeForm.valueChanges.subscribe(
+    data =>  this.logKeyValuePairs(this.employeeForm)
+    );
   }
 
   formErrors = {
@@ -60,7 +60,7 @@ export class CreateEmployeeComponent implements OnInit {
     console.log(this.employeeForm.value);
   }
 
-  logKeyValuePairs(group: FormGroup) {
+  logKeyValuePairs(group: FormGroup = this.employeeForm) {
     Object.keys(group.controls).forEach((key) => {
       const abstractControl = group.get(key);
       if (abstractControl instanceof FormGroup) {
@@ -84,9 +84,9 @@ export class CreateEmployeeComponent implements OnInit {
     });
   }
 
-  loadData() {
-    this.logKeyValuePairs(this.employeeForm);
-    console.log(this.formErrors);
-  }
+  // loadData() {
+  //   this.logKeyValuePairs(this.employeeForm);
+  //   console.log(this.formErrors);
+  // }
 
 }
