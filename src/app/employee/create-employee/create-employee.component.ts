@@ -14,7 +14,10 @@ export class CreateEmployeeComponent implements OnInit {
   ngOnInit() {
     this.employeeForm = this._fb.group({
       fullName: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
-      email: ["", [Validators.required, customValidtors.emailDomain('ge.com')]],
+      emailGroup:this._fb.group({
+        email: ["", [Validators.required, customValidtors.emailDomain('ge.com')]],
+        confirmEmail:['',Validators.required],
+      },{validator:matchEmails}),
       skills: this._fb.group({
         skill: ["", Validators.required],
         experience: ["", Validators.required],
@@ -30,6 +33,8 @@ export class CreateEmployeeComponent implements OnInit {
   formErrors = {
     'fullName': '',
     'email': '',
+    'confirmEmail':'',
+    'emailGroup':'',
     'skill': '',
     'experience': '',
     'proficiency': ''
@@ -45,6 +50,12 @@ export class CreateEmployeeComponent implements OnInit {
       'emailDomain': 'Email domain should be GE.com',
       'required': 'Email is required.'
     },
+    'confirmEmail':{
+      'required':'Confirm Email is required'
+    },
+    'emailGroup':{
+    'emailMismatch':'email and confirm email don not match'
+    },
     'skill': {
       'required': 'Skill Name is required.',
     },
@@ -58,17 +69,12 @@ export class CreateEmployeeComponent implements OnInit {
 
 
   onSubmit() {
-    console.log(this.employeeForm.value);
   }
 
   logKeyValuePairs(group: FormGroup = this.employeeForm) {
     Object.keys(group.controls).forEach((key) => {
       const abstractControl = group.get(key);
-      if (abstractControl instanceof FormGroup) {
-        this.logKeyValuePairs(abstractControl)
-      }
-      else {
-        this.formErrors[key] = "";
+      this.formErrors[key] = "";
         if (abstractControl && !abstractControl.valid && (abstractControl.touched)) {
           const messages = this.validationMessages[key];
 
@@ -78,11 +84,22 @@ export class CreateEmployeeComponent implements OnInit {
             }
           }
         }
+      if (abstractControl instanceof FormGroup) {
+        this.logKeyValuePairs(abstractControl)
       }
     });
-    console.log(this.formErrors);
   }
 
 }
 
 
+function matchEmails(group: AbstractControl): { [key: string]: any } | null {
+  const emailControl = group.get('email');
+  const confirmEmailControl = group.get('confirmEmail');
+
+  if (emailControl.value === confirmEmailControl.value || confirmEmailControl.pristine) {
+    return null;
+  } else {
+    return { 'emailMismatch': true };
+  }
+}
