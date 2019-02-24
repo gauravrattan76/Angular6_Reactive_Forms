@@ -14,16 +14,16 @@ export class CreateEmployeeComponent implements OnInit {
   ngOnInit() {
     this.employeeForm = this._fb.group({
       fullName: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
-      email: ["",[Validators.required,emailDomain]],
+      email: ["", [Validators.required, emailDomain('ge.com')]],
       skills: this._fb.group({
-        skill: ["",Validators.required],
-        experience: ["",Validators.required],
-        proficiency: ["",Validators.required]
+        skill: ["", Validators.required],
+        experience: ["", Validators.required],
+        proficiency: ["", Validators.required]
       })
     });
 
     this.employeeForm.valueChanges.subscribe(
-    data =>  this.logKeyValuePairs(this.employeeForm)
+      data => this.logKeyValuePairs(this.employeeForm)
     );
   }
 
@@ -42,7 +42,7 @@ export class CreateEmployeeComponent implements OnInit {
       'maxlength': 'Full Name must be less than 10 characters.'
     },
     'email': {
-      'emailDomain':'Email domain should be GE.com',
+      'emailDomain': 'Email domain should be GE.com',
       'required': 'Email is required.'
     },
     'skill': {
@@ -69,18 +69,15 @@ export class CreateEmployeeComponent implements OnInit {
       }
       else {
         this.formErrors[key] = "";
-       if(abstractControl && !abstractControl.valid && (abstractControl.touched))
-       {
-         const messages = this.validationMessages[key];
-      
-       for(const errorKey in abstractControl.errors)
-       {
-         if(errorKey)
-         {
-           this.formErrors[key] += messages[errorKey] + ' ';
-         }
-       }
-      }
+        if (abstractControl && !abstractControl.valid && (abstractControl.touched)) {
+          const messages = this.validationMessages[key];
+
+          for (const errorKey in abstractControl.errors) {
+            if (errorKey) {
+              this.formErrors[key] += messages[errorKey] + ' ';
+            }
+          }
+        }
       }
     });
     console.log(this.formErrors);
@@ -90,15 +87,18 @@ export class CreateEmployeeComponent implements OnInit {
   //   this.logKeyValuePairs(this.employeeForm);
   //   console.log(this.formErrors);
   // }
- 
-  }
-  function emailDomain(control: AbstractControl): { [key: string]: any } | null {
-    const email: string = control.value;
-    const domain = email.substring(email.lastIndexOf('@') + 1);
-    if (email === '' || domain.toLowerCase() === 'ge.com') {
-      return null;
-    } else {
-      return { 'emailDomain': true };
-    }
 
+}
+
+function emailDomain(domainname:string){
+  return (control: AbstractControl) =>{
+  const email = control.value;
+  const domain = email.substring(email.lastIndexOf('@') + 1);
+  if (domain === '' || domain.toLowerCase() === domainname) {
+    return null;
+  }
+  else {
+    return { 'emailDomain': true }
+  }
+}
 }
