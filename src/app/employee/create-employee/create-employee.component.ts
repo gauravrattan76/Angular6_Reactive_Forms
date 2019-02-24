@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl,FormArray, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import {customValidtors} from '../../shared/customValidators';
 
 @Component({
@@ -69,6 +69,42 @@ export class CreateEmployeeComponent implements OnInit {
 
 
   onSubmit() {
+    // const formArray = new FormArray([
+    //   new FormControl('It',Validators.required),
+    //   new FormGroup({
+    //   country: new FormControl('den',Validators.required)
+    //   }),
+    //   new FormArray([
+    //     new FormControl('den',Validators.required)
+    //   ])
+    // ]);
+    // for(const control of formArray.controls)
+    // {
+    //   if(control instanceof FormControl)
+    //   {
+    //     console.log("Instance of form control" + control.value);
+    //   }
+    //   if(control instanceof FormGroup)
+    //   {
+    //     console.log("Instance of form Group" + control.value);
+    //   }
+    //   if(control instanceof FormArray)
+    //   {
+    //     console.log("Instance of form Array" + control.value);
+    //   }
+    // }
+    const formArray1 = this._fb.array([
+      new FormControl('It',Validators.required),
+      new FormControl('den',Validators.required),
+      new FormControl('wwe',Validators.required),
+    ]);
+    const formgroup1 = this._fb.group([
+      new FormControl('It',Validators.required),
+      new FormControl('den',Validators.required),
+      new FormControl('wwe',Validators.required),
+    ]);
+    console.log(formArray1);
+    console.log(formgroup1);
   }
 
   logKeyValuePairs(group: FormGroup = this.employeeForm) {
