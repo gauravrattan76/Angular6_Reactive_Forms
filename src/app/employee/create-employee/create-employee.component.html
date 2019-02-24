@@ -46,17 +46,24 @@
         </div>
       </div>
     </div>
-      <div formGroupName="skills">
-        <div class="form-group">
+    <div formArrayName="skills">
+      <div formGroupName="0">
+        <div class="form-group" >
           <div class="row">
             <div class="col-md-2">
               <label class="control-label" for="skill">Skill:</label>
             </div>
-            <div class="col-md-4">
-              <input type="text" name="skill" class="form-control" placeholder="skill" formControlName="skill">
+            <div class="col-md-4" [ngClass]="{'has-error':formErrors.skill}">
+              <input type="text" name="skill" class="form-control" placeholder="skill" formControlName="skill" (blur)="logKeyValuePairs()">
+              <span class="help-block" *ngIf="formErrors.skill">
+                {{formErrors.skill}}
+                </span>
             </div>
-            <div class="col-md-4">
-              <input type="text" name="experience" class="form-control" placeholder="experience" formControlName="experience">
+            <div class="col-md-4" [ngClass]="{'has-error':formErrors.experience}">
+              <input type="text" name="experience" class="form-control" placeholder="experience" formControlName="experience" (blur)="logKeyValuePairs()">
+              <span class="help-block" *ngIf="formErrors.experience">
+                {{formErrors.experience}}
+                </span>
             </div>
           </div>
         </div>
@@ -83,6 +90,7 @@
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
     <div class="card-footer">

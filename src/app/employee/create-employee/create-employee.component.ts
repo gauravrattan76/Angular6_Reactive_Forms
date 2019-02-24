@@ -18,16 +18,22 @@ export class CreateEmployeeComponent implements OnInit {
         email: ["", [Validators.required, customValidtors.emailDomain('ge.com')]],
         confirmEmail:['',Validators.required],
       },{validator:matchEmails}),
-      skills: this._fb.group({
-        skill: ["", Validators.required],
-        experience: ["", Validators.required],
-        proficiency: ["", Validators.required]
-      })
+      skills: this._fb.array([
+        this.addSkillFormGroup()
+      ])
     });
 
     this.employeeForm.valueChanges.subscribe(
       data => this.logKeyValuePairs(this.employeeForm)
     );
+  }
+
+  addSkillFormGroup():FormGroup{
+    return this._fb.group({
+      skill: ["", Validators.required],
+      experience: ["", Validators.required],
+      proficiency: ["", Validators.required]
+    })
   }
 
   formErrors = {
@@ -69,30 +75,6 @@ export class CreateEmployeeComponent implements OnInit {
 
 
   onSubmit() {
-    // const formArray = new FormArray([
-    //   new FormControl('It',Validators.required),
-    //   new FormGroup({
-    //   country: new FormControl('den',Validators.required)
-    //   }),
-    //   new FormArray([
-    //     new FormControl('den',Validators.required)
-    //   ])
-    // ]);
-    // for(const control of formArray.controls)
-    // {
-    //   if(control instanceof FormControl)
-    //   {
-    //     console.log("Instance of form control" + control.value);
-    //   }
-    //   if(control instanceof FormGroup)
-    //   {
-    //     console.log("Instance of form Group" + control.value);
-    //   }
-    //   if(control instanceof FormArray)
-    //   {
-    //     console.log("Instance of form Array" + control.value);
-    //   }
-    // }
     const formArray1 = this._fb.array([
       new FormControl('It',Validators.required),
       new FormControl('den',Validators.required),
@@ -122,6 +104,13 @@ export class CreateEmployeeComponent implements OnInit {
         }
       if (abstractControl instanceof FormGroup) {
         this.logKeyValuePairs(abstractControl)
+      }
+      if (abstractControl instanceof FormArray) {
+        for (const control of abstractControl.controls) {
+          if (control instanceof FormGroup) {
+            this.logKeyValuePairs(control);
+          }
+        }
       }
     });
   }
